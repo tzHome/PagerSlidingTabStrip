@@ -77,14 +77,14 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     private int underlineColor = 0x1A000000;
     private int dividerColor = 0x1A000000;
 
-    private boolean shouldExpand = false;
+    private boolean shouldExpand = true; //如果设置为true，每个标签是相同的控件，均匀平分整个屏幕，默认是false
     private boolean textAllCaps = true;
 
     private int scrollOffset = 52;
-    private int indicatorHeight = 8;
-    private int underlineHeight = 2;
-    private int dividerPadding = 12;
-    private int tabPadding = 24;
+    private int indicatorHeight = 2; // 滑动条的高度
+    private int underlineHeight = 1; // 滑动条所在的那个全宽线的高度
+    private int dividerPadding = 10; // 割线底部和顶部的填充宽度
+    private int tabPadding = 24; // 每个标签左右填充宽度
     private int dividerWidth = 1;
 
     private int tabTextSize = 12;
@@ -94,7 +94,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
     private int lastScrollX = 0;
 
-    private int tabBackgroundResId = R.drawable.background_tab;
+    private int tabBackgroundResId = R.drawable.background_tab; // 每个标签的背景
 
     private Locale locale;
 
