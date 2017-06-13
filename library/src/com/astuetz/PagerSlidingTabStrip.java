@@ -78,7 +78,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     private int dividerColor = 0x1A000000;
 
     private boolean shouldExpand = true; //如果设置为true，每个标签是相同的控件，均匀平分整个屏幕，默认是false
-    private boolean textAllCaps = true;
+    private boolean textAllCaps = true; // 如果为true，所有标签都是大写字母，默认为true
 
     private int scrollOffset = 52;
     private int indicatorHeight = 2; // 滑动条的高度
