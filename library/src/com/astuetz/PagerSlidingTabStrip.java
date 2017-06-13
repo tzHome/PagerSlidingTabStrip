@@ -358,8 +358,9 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
             currentPosition = position;
             currentPositionOffset = positionOffset;
 
+            // 根据上面得到的 view 的位置和偏移位置，来同步 tab 的位置和偏移距离。
             scrollToChild(position, (int) (positionOffset * tabsContainer.getChildAt(position).getWidth()));
-
+            // 重绘 view，实现 tab 滑动的效果
             invalidate();
 
             if (delegatePageListener != null) {
