@@ -20,109 +20,111 @@ import com.astuetz.PagerSlidingTabStrip.IconTabProvider;
 
 public class QuickContactFragment extends DialogFragment {
 
-	private PagerSlidingTabStrip tabs;
-	private ViewPager pager;
-	private ContactPagerAdapter adapter;
+    private PagerSlidingTabStrip tabs;
+    private ViewPager pager;
+    private ContactPagerAdapter adapter;
 
-	public static QuickContactFragment newInstance() {
-		QuickContactFragment f = new QuickContactFragment();
-		return f;
-	}
+    private static QuickContactFragment instance;
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public static QuickContactFragment newInstance() {
+        if (instance == null) {
+            instance = new QuickContactFragment();
+        }
+        return instance;
+    }
 
-		if (getDialog() != null) {
-			getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-			getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-		}
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		View root = inflater.inflate(R.layout.fragment_quick_contact, container, false);
+        if (getDialog() != null) {
+            getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+            getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
 
-		tabs = (PagerSlidingTabStrip) root.findViewById(R.id.tabs);
-		pager = (ViewPager) root.findViewById(R.id.pager);
-		adapter = new ContactPagerAdapter();
+        View root = inflater.inflate(R.layout.fragment_quick_contact, container, false);
 
-		pager.setAdapter(adapter);
+        tabs = (PagerSlidingTabStrip) root.findViewById(R.id.tabs);
+        pager = (ViewPager) root.findViewById(R.id.pager);
+        adapter = new ContactPagerAdapter();
 
-		tabs.setViewPager(pager);
+        pager.setAdapter(adapter);
 
-		return root;
-	}
+        tabs.setViewPager(pager);
 
-	@SuppressWarnings("deprecation")
-	@Override
-	public void onStart() {
-		super.onStart();
+        return root;
+    }
 
-		// change dialog width
-		if (getDialog() != null) {
+    @SuppressWarnings("deprecation")
+    @Override
+    public void onStart() {
+        super.onStart();
 
-			int fullWidth = getDialog().getWindow().getAttributes().width;
+        // change dialog width
+        if (getDialog() != null) {
 
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-				Display display = getActivity().getWindowManager().getDefaultDisplay();
-				Point size = new Point();
-				display.getSize(size);
-				fullWidth = size.x;
-			} else {
-				Display display = getActivity().getWindowManager().getDefaultDisplay();
-				fullWidth = display.getWidth();
-			}
+            int fullWidth = getDialog().getWindow().getAttributes().width;
 
-			final int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
-					.getDisplayMetrics());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+                Display display = getActivity().getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+                fullWidth = size.x;
+            } else {
+                Display display = getActivity().getWindowManager().getDefaultDisplay();
+                fullWidth = display.getWidth();
+            }
 
-			int w = fullWidth - padding;
-			int h = getDialog().getWindow().getAttributes().height;
+            final int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
+                    .getDisplayMetrics());
 
-			getDialog().getWindow().setLayout(w, h);
-		}
-	}
+            int w = fullWidth - padding;
+            int h = getDialog().getWindow().getAttributes().height;
 
-	public class ContactPagerAdapter extends PagerAdapter implements IconTabProvider {
+            getDialog().getWindow().setLayout(w, h);
+        }
+    }
 
-		private final int[] ICONS = { R.drawable.ic_launcher_gplus, R.drawable.ic_launcher_gmail,
-				R.drawable.ic_launcher_gmaps, R.drawable.ic_launcher_chrome };
+    public class ContactPagerAdapter extends PagerAdapter implements IconTabProvider {
 
-		public ContactPagerAdapter() {
-			super();
-		}
+        private final int[] ICONS = {R.drawable.ic_launcher_gplus, R.drawable.ic_launcher_gmail,
+                R.drawable.ic_launcher_gmaps, R.drawable.ic_launcher_chrome};
 
-		@Override
-		public int getCount() {
-			return ICONS.length;
-		}
+        public ContactPagerAdapter() {
+            super();
+        }
 
-		@Override
-		public int getPageIconResId(int position) {
-			return ICONS[position];
-		}
+        @Override
+        public int getCount() {
+            return ICONS.length;
+        }
 
-		@Override
-		public Object instantiateItem(ViewGroup container, int position) {
-			// looks a little bit messy here
-			TextView v = new TextView(getActivity());
-			v.setBackgroundResource(R.color.background_window);
-			v.setText("PAGE " + (position + 1));
-			final int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getResources()
-					.getDisplayMetrics());
-			v.setPadding(padding, padding, padding, padding);
-			v.setGravity(Gravity.CENTER);
-			container.addView(v, 0);
-			return v;
-		}
+        @Override
+        public int getPageIconResId(int position) {
+            return ICONS[position];
+        }
 
-		@Override
-		public void destroyItem(ViewGroup container, int position, Object view) {
-			container.removeView((View) view);
-		}
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            // looks a little bit messy here
+            TextView v = new TextView(getActivity());
+            v.setBackgroundResource(R.color.background_window);
+            v.setText("PAGE " + (position + 1));
+            final int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getResources()
+                    .getDisplayMetrics());
+            v.setPadding(padding, padding, padding, padding);
+            v.setGravity(Gravity.CENTER);
+            container.addView(v, 0);
+            return v;
+        }
 
-		@Override
-		public boolean isViewFromObject(View v, Object o) {
-			return v == ((View) o);
-		}
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object view) {
+            container.removeView((View) view);
+        }
 
-	}
-
+        @Override
+        public boolean isViewFromObject(View v, Object o) {
+            return v == ((View) o);
+        }
+    }
 }
