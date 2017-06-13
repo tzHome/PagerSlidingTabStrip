@@ -131,16 +131,13 @@ public class MainActivity extends FragmentActivity {
 			getActionBar().setDisplayShowTitleEnabled(true);
 
 		}
-
 		currentColor = newColor;
 
 	}
 
 	public void onColorClicked(View v) {
-
 		int color = Color.parseColor(v.getTag().toString());
 		changeColor(color);
-
 	}
 
 	@Override
